@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.lzc.dao.PlantMapper">
+  
+ <!--  全查 模糊 -->
+  
+  <select id="selects" resultType="com.lzc.domain.Plant">
+  SELECT * FROM `plant` p LEFT JOIN `types` t ON p.`tid`= t.`tid`
+  <where>
+  	<if test="pname != null and pname != ''">
+  		and pname like '%${pname}%'
+  	</if>
+  </where>
+  </select>
+  <!-- 批量删除 -->
+  <delete id="delALL">
+  	delete from plant where pid in (${value})
+  </delete>
+  </mapper>
